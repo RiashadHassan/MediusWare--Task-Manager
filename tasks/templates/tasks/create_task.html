@@ -1,0 +1,9 @@
+{%extends 'main.html'%}
+{%block content%}
+
+<form method='POST' action='' >
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-outline-danger" type='submit' value='Add Task' name='country_form_submit'/>
+</form>
+{%endblock content%}

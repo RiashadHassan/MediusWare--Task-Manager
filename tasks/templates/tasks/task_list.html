@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+{%block content %}
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+
+<div class= "home-container">
+
+    <div>
+        <h3>User List</h3>
+        <hr>
+        {% for user in users%}
+        <div>
+            <a href = "{% url 'user-tasks' user.id %}">{{user.username}}</a>
+          
+        </div>
+        
+        {%endfor%} 
+    </div>
+
+    <div>
+        <h3>Task List</h3>
+        <hr>
+        <a href= "{% url 'create-task' %}" >New Task</a>
+        <hr>
+        <div>
+            {%  for task in tasks %}
+                <div>
+                    {%if request.user == task.user%}
+                    <a href= "{% url 'edit-task' task.id %}">Edit</a> 
+                    <a href= "{% url 'delete-task' task.id  %}">Delete</a><br>
+                    {%else%}
+                    {%endif%}
+                    <span>Created By @ <a href= {% url 'user-tasks' task.user.id %}>{{task.user.username}}</a></span>
+                    
+                    <a href = {%url 'task-details' task.id %}><h5> {{task.id}}: {{task.title}}</h5> </a> 
+                
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
